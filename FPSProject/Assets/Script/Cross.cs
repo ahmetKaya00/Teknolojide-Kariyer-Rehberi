@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Cross : MonoBehaviour
+{
+    [SerializeField] GameObject[] Hedefler;
+    void Start()
+    {
+        foreach(var hedefler in Hedefler)
+        {
+            hedefler.GetComponent<Animator>().enabled = false;
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1") && Mermi._cephane > 0)
+        {
+            foreach (var hedefler in Hedefler)
+            {
+                hedefler.GetComponent<Animator>().enabled = true;
+            }
+            StartCoroutine(Bekleme());
+        }
+    }
+
+    IEnumerator Bekleme()
+    {
+        yield return new WaitForSeconds(0.1f);
+        foreach (var hedefler in Hedefler)
+        {
+            hedefler.GetComponent<Animator>().enabled = false;
+        }
+    }
+}
